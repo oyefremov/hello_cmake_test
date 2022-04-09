@@ -19,6 +19,46 @@ TEST(median, sample_test2) {
     EXPECT_EQ(1.5, mf.findMedian());
 }
 
+
+TEST(median, on_a_border) {
+    MedianFinder mf;
+    mf.addNum(-110);
+    mf.addNum(-10);
+    mf.addNum(20);
+    mf.addNum(25);
+
+    EXPECT_EQ(5, mf.findMedian());
+}
+
+TEST(median, on_a_border_2) {
+    MedianFinder mf;
+    mf.addNum(-1);
+    mf.addNum(1);
+    mf.addNum(10);
+
+    EXPECT_EQ(1, mf.findMedian());
+}
+
+TEST(median, on_a_border_3) {
+    MedianFinder mf;
+    mf.addNum(-3000);
+    mf.addNum(-3000);
+    mf.addNum(1000);
+    mf.addNum(1000);
+
+    EXPECT_EQ(-1000, mf.findMedian());
+}
+
+TEST(median, on_a_border_4) {
+    MedianFinder mf;
+    mf.addNum(1);
+    mf.addNum(10);
+    mf.addNum(1010);
+    mf.addNum(1110);
+
+    EXPECT_EQ(510, mf.findMedian());
+}
+
 TEST(median, sample_test3) {
     MedianFinder mf;
     mf.addNum(1);

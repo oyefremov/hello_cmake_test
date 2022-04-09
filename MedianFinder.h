@@ -22,7 +22,26 @@ public:
     }
     
     double findMedian() {
-        if (std::abs((int)negative_nums.size() - (int)large_nums.size()) <= histogram_size) {
+        if (std::abs((int)negative_nums.size() - (int)large_nums.size()) == histogram_size) {
+            if (negative_nums.size() == large_nums.size()) {
+                auto a = *std::max_element(negative_nums.begin(), negative_nums.end());
+                auto b = *std::min_element(large_nums.begin(), large_nums.end());
+                return (a + b) / 2.0;
+            }
+            if (negative_nums.size() > large_nums.size()) {
+                auto a = *std::max_element(negative_nums.begin(), negative_nums.end());
+                auto pos = std::find_if(histogram.begin(), histogram.end(), [](int i) {return i != 0; });
+                auto b = distance(histogram.begin(), pos);
+                return (a + b) / 2.0;
+            }
+            if (negative_nums.size() < large_nums.size()) {
+                auto pos = std::find_if(histogram.rbegin(), histogram.rend(), [](int i) {return i != 0; }).base() - 1;
+                auto a = distance(histogram.begin(), pos);
+                auto b = *std::min_element(large_nums.begin(), large_nums.end());
+                return (a + b) / 2.0;
+            }
+        }
+        else if (std::abs((int)negative_nums.size() - (int)large_nums.size()) <= histogram_size) {
             // median within the histogram
             size_t left = negative_nums.size();
             size_t right = large_nums.size();
