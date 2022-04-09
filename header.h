@@ -4,4 +4,4 @@
 
 using namespace std;
 
-#include "MedianFinder.h"
+#include "maxPoints.h"
