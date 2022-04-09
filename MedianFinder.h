@@ -24,24 +24,35 @@ public:
     double findMedian() {
         if (std::abs((int)negative_nums.size() - (int)large_nums.size()) <= histogram_size) {
             // median within the histogram
+            
             return 0;
         }else if (negative_nums.size() > large_nums.size() + histogram_size) {
             // median in negative_nums
             auto other_size = large_nums.size() + histogram_size;
             assert(other_size < negative_nums.size());
             auto size_to_sort = negative_nums.size() - other_size;
-            std::partial_sort(negative_nums.rbegin(), negative_nums.rbegin() + size_to_sort, negative_nums.rend());
-            auto p = negative_nums.begin() + other_size;
+            auto index = other_size + size_to_sort / 2;
+            std::nth_element(negative_nums.begin(), negative_nums.begin() + index, negative_nums.end());
             if (size_to_sort % 2 == 0) {
-                return (*(p+(size_to_sort/2)) + *(p+(size_to_sort/2 - 1))) / 2.0;
+                auto prev = std::max_element(negative_nums.begin(), negative_nums.begin() + index);
+                return (negative_nums[index] + *prev) / 2.0;
             }else{
-                return *(p+(size_to_sort/2));
+                return negative_nums[index];
             }
         }else {
             // median in large_nums
             auto other_size = negative_nums.size() + histogram_size;
             assert(large_nums.size() > negative_nums.size() + histogram_size);
-            return 0;
+            auto size_to_sort = large_nums.size() - other_size;
+            auto index = size_to_sort / 2;
+            std::nth_element(large_nums.begin(), large_nums.begin() + index, large_nums.end());
+            if (size_to_sort % 2 == 0) {
+                auto prev = std::max_element(large_nums.begin(), large_nums.begin() + index);
+                return (large_nums[index] + *prev) / 2.0;
+            }
+            else {
+                return large_nums[index];
+            }
         }
         // sort(nums.begin(), nums.end());
         // if (nums.size() % 2 == 0) {

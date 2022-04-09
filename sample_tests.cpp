@@ -48,12 +48,20 @@ TEST(median, in_negative){
     EXPECT_EQ((-110+50)/2, mf.findMedian());
 }
 
-TEST(median, in_negative_simple){
+TEST(median, in_negative_simple) {
     MedianFinder mf;
-    for (int i=-10; i<=0; i++) {
+    for (int i = -20; i <= 10; i++) {
         mf.addNum(i);
     }
-    EXPECT_EQ((-10+0)/2, mf.findMedian());
+    EXPECT_EQ((-20 + 10) / 2, mf.findMedian());
+}
+
+TEST(median, in_negative_simple_2) {
+    MedianFinder mf;
+    for (int i = -21; i <= 10; i++) {
+        mf.addNum(i);
+    }
+    EXPECT_EQ((-21 + 10) / 2.0, mf.findMedian());
 }
 
 TEST(median, in_large){
