@@ -28,6 +28,14 @@ TEST(median, sample_test3) {
     EXPECT_EQ(2, mf.findMedian());
 }
 
+TEST(median, sample_test4) {
+    MedianFinder mf;
+    mf.addNum(10);
+    mf.addNum(20);
+
+    EXPECT_EQ(15, mf.findMedian());
+}
+
 TEST(median, in_histogram){
     MedianFinder mf;
     for (int i=-10; i<=50; i++) {

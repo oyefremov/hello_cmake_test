@@ -28,21 +28,25 @@ public:
             size_t right = large_nums.size();
             auto lp = histogram.begin();
             auto rp = histogram.end() - 1;
+            auto last_lp = lp, last_rp = rp;
             while (std::distance(lp, rp) > 1) {
                 if (left + *lp < right + *rp) {
                     left += *lp;
                     lp++;
+                    if (*lp) last_lp = lp;
                 }else{
                     right += *rp;
                     rp--;
+                    if (*rp) last_rp = rp;
                 }
+
             }
             if (left + *lp < right + *rp){
-                return *lp;
+                return distance(histogram.begin(), last_rp);
             }else if(left + *lp == right + *rp){
-                return (*lp + *rp) / 2.0;
+                return (distance(histogram.begin(), last_lp) + distance(histogram.begin(), last_rp)) / 2.0;
             }else {
-                return *rp;
+                return distance(histogram.begin(), last_lp);
             }
         }else if (negative_nums.size() > large_nums.size() + histogram_size) {
             // median in negative_nums
