@@ -24,8 +24,26 @@ public:
     double findMedian() {
         if (std::abs((int)negative_nums.size() - (int)large_nums.size()) <= histogram_size) {
             // median within the histogram
-            
-            return 0;
+            size_t left = negative_nums.size();
+            size_t right = large_nums.size();
+            auto lp = histogram.begin();
+            auto rp = histogram.end() - 1;
+            while (std::distance(lp, rp) > 1) {
+                if (left + *lp < right + *rp) {
+                    left += *lp;
+                    lp++;
+                }else{
+                    right += *rp;
+                    rp--;
+                }
+            }
+            if (left + *lp < right + *rp){
+                return *lp;
+            }else if(left + *lp == right + *rp){
+                return (*lp + *rp) / 2.0;
+            }else {
+                return *rp;
+            }
         }else if (negative_nums.size() > large_nums.size() + histogram_size) {
             // median in negative_nums
             auto other_size = large_nums.size() + histogram_size;
@@ -63,7 +81,7 @@ public:
     }
 
     vector<int> negative_nums, large_nums;
-    array<int, 101> histogram;
+    array<int, 101> histogram = {};
     int histogram_size = 0;
 };
 
