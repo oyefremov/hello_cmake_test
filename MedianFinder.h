@@ -95,22 +95,10 @@ public:
                 return large_nums[index];
             }
         }
-        // sort(nums.begin(), nums.end());
-        // if (nums.size() % 2 == 0) {
-        //     return (nums[nums.size() / 2 - 1] + nums[nums.size() / 2]) / 2.0;
-        // } else {
-        //     return nums[nums.size() / 2];
-        // }
+        return 0;
     }
 
     vector<int> negative_nums, large_nums;
     array<int, 101> histogram = {};
     int histogram_size = 0;
 };
-
-/**
- * Your MedianFinder object will be instantiated and called as such:
- * MedianFinder* obj = new MedianFinder();
- * obj->addNum(num);
- * double param_2 = obj->findMedian();
- */
