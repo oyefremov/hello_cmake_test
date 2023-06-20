@@ -1,5 +1,3 @@
-project(tests)
-
 add_executable(tests
     primes_test.cpp
     prime_twins_test.cpp
