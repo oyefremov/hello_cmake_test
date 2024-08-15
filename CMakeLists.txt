@@ -5,11 +5,15 @@ project(primes)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# enable compile_commands.json for clangd extension   
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 # To enamble gtest sources use following git commands in your project
 # git submodule add git@github.com:google/googletest.git external/googletest
 # git submodule update --init --recursive
 add_subdirectory(external/googletest)
 
 add_subdirectory(primes)
+add_subdirectory(tictactoe)
 add_subdirectory(app)
 add_subdirectory(tests)
