@@ -54,7 +54,8 @@ int main() {
   using tictactoe::O;
   using tictactoe::X;
 
-  auto premoves = "40077221166888866001188778855551176333300445522335533458800884777561";
+  // auto premoves = "40077221166888866001188778855551176333300445522335533458800884777561";
+  auto premoves = "";
   replay(game, premoves);
 
   while (true) {
@@ -71,11 +72,9 @@ int main() {
         last_move = tictactoe::pick_move(game);
         if (last_move.big != -1)
           set(game, last_move);
-        if (game.board.target == -1)
+        cursor = tictactoe::pick_random_move(game);
+        if (cursor.big == -1)
           cursor = {4, 4};
-        else
-          cursor = {game.board.target,
-                    find_empty_cell(game.board.miniboards[game.board.target])};
       }
     }
 
