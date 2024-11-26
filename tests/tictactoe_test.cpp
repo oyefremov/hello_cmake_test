@@ -1,9 +1,9 @@
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 #include "tictactoe.h"
 
 using namespace testing;
+
 
 using namespace tictactoe;
 
@@ -32,12 +32,13 @@ X..  X..  XXX
     board_position pos = {big, small};
     set(game, pos);
     if (game.board.miniboards.at(pos.small).free_cells > 0) {
-      EXPECT_EQ(game.board.target, pos.small)
+      EXPECT_TRUE(game.board.target.is_restricted_to_miniboard());
+      EXPECT_EQ(game.board.target.get_miniboard(), pos.small)
           << "i=" << i << "\n"
           << moves << "\n"
           << std::string(i - 1, ' ') << "^^";
     } else {
-      EXPECT_EQ(game.board.target, -1) << "i=" << i << "\n"
+      EXPECT_TRUE(game.board.target.is_unrestricted()) << "i=" << i << "\n"
                                        << moves << "\n"
                                        << std::string(i - 1, ' ') << "^^";
     }
@@ -73,22 +74,29 @@ O..  ..X  .XO
     board_position pos = {big, small};
     set(game, pos);
     if (game.board.miniboards.at(pos.small).free_cells > 0) {
-      EXPECT_EQ(game.board.target, pos.small)
+      EXPECT_TRUE(game.board.target.is_restricted_to_miniboard());
+      EXPECT_EQ(game.board.target.get_miniboard(), pos.small)
           << "i=" << i << "\n"
           << moves << "\n"
           << std::string(i - 1, ' ') << "^^";
     } else {
-      EXPECT_EQ(game.board.target, -1) << "i=" << i << "\n"
+      EXPECT_TRUE(game.board.target.is_unrestricted()) << "i=" << i << "\n"
                                        << moves << "\n"
                                        << std::string(i - 1, ' ') << "^^";
     }
   }
-  EXPECT_EQ(game.board.target, -1);
-  for (int i:{1, 3, 7, 8})
-  {
+  EXPECT_TRUE(game.board.target.is_unrestricted());
+  for (int i : {1, 3, 7, 8}) {
     EXPECT_EQ(game.board.miniboards[i].free_cells, 0) << i;
   }
   auto next_move = pick_random_move(game);
   EXPECT_EQ(next_move.big, 2);
   EXPECT_EQ(next_move.small, 7);
+}
+
+TEST(tictactoe, win_x) {
+  game game;
+  replay(game, "444227788116677446611331100004488335511775500118877668822003388"
+               "0077164405223344555533058855460");
+  EXPECT_EQ(game.outcome, WIN_X);
 }
